@@ -18,16 +18,10 @@ import { supabase } from "@/lib/superbase";
 const LoginScreen = () => {
   const keyboardVerticalOffset = Platform.OS === "ios" ? 90 : 0;
   const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("admin123");
+  const [password, setPassword] = useState("password");
   const [loading, setLoading] = useState(false);
 
-  // const handleLogin = async () => {
-  //   setLoading(true);
-  //   Alert.alert("Login", "Login Successful");
-  //   setLoading(false);
-  // };
-
-  async function signInWithEmail() {
+  async function signUpWithEmail() {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -83,20 +77,13 @@ const LoginScreen = () => {
                   onChangeText={setPassword}
                 />
               </View>
-              <View style={styles.signUpForgot}>
-                <Link style={{ marginRight: "auto" }} asChild href="/register">
-                  <TouchableOpacity>
-                    <Text>SignUp?</Text>
-                  </TouchableOpacity>
-                </Link>
-                <Link style={{ marginLeft: "auto" }} asChild href="/forgot">
-                  <TouchableOpacity>
-                    <Text>Forgot Password?</Text>
-                  </TouchableOpacity>
-                </Link>
-              </View>
+              <Link style={{ marginLeft: "auto" }} asChild href="/login">
+                <TouchableOpacity>
+                  <Text>Already have an account? Login</Text>
+                </TouchableOpacity>
+              </Link>
             </View>
-            <TouchableOpacity style={styles.button} onPress={signInWithEmail}>
+            <TouchableOpacity style={styles.button} onPress={signUpWithEmail}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
           </View>
@@ -160,12 +147,6 @@ const styles = StyleSheet.create({
     padding: 10,
     fontWeight: 500,
     fontSize: 16,
-  },
-  signUpForgot: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: 335,
-    marginTop: 10,
   },
   button: {
     backgroundColor: "#f5c500",
